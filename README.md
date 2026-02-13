@@ -117,7 +117,7 @@ All images will be stored separately in the `/Screenshots/` folder.
 
 ## 👤 Author
 
-**Ikram Adjissa**  
+**Ikram BERHAIL**  
 📍 Based in France | 💼 Aspiring Data Analyst  
 🔗 [GitHub](https://github.com/adjisssaikram-arch)  
 
