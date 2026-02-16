@@ -1,0 +1,5 @@
+# Power BI Project ignore list
+*.abf
+*.pbiq
+localSettings.json
+unappliedChanges.json
