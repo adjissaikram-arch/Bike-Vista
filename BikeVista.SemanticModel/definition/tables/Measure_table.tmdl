@@ -1,0 +1,442 @@
+table Measure_table
+	lineageTag: 2d67b965-c3db-4bea-aeef-2fbfca478567
+
+	/// Calculates the sum of order quantities from the Fact_sales table
+	measure 'Quantity sold' =
+			
+			SUM(
+			    Fact_sales[OrderQuantity]
+			)
+		formatString: #,0
+		lineageTag: 2586f427-2aaf-40d5-a377-22f0ee0de5b3
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Calculates the sum of return quantities from the Fact_returns table
+	measure 'Quantity returned' =
+			
+			SUM(
+			    Fact_returns[ReturnQuantity]
+			)
+		formatString: #,0
+		lineageTag: 66f620ff-49c3-4b1e-a769-5d0f1d973a91
+
+	/// Calculates the arithmetic mean of the product price in the Dim_product table
+	measure 'Average retail price' =
+			
+			AVERAGE(
+			    Dim_product[ProductPrice]
+			)
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: 9f90eec4-cbed-44d3-af60-3c855b0ec36f
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Counts the total number of rows in the Fact_returns table
+	measure 'Total returns' =
+			
+			COUNTROWS(Fact_returns)
+		formatString: #,0
+		lineageTag: 43f3163c-5d63-4920-8509-f9f18cc88c0f
+
+	/// Calculates the number of unique order numbers in the Fact_sales table
+	measure 'Total orders' =
+			
+			DISTINCTCOUNT(Fact_sales[OrderNumber])
+		formatString: #,0
+		lineageTag: ca598384-b9fd-4ad4-8cdc-6cf7cbbafbe8
+
+	/// Calculates the number of unique customer keys in the Fact_sales table
+	measure 'Total customers' =
+			
+			DISTINCTCOUNT(Fact_sales[CustomerKey])
+		formatString: 0
+		lineageTag: a59d336c-59a4-40da-935f-c36d2674536d
+
+	/// Calculates the ratio of quantities returned to quantities sold, returning "No sales" if the denominator is zero
+	measure Return_rate =
+			
+			DIVIDE(
+			    [Quantity returned],
+			    [Quantity sold],
+			    "No sales")
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 73f11697-d82c-4e7c-b29e-567c07e98930
+
+	/// Calculates total orders for transactions where the order quantity is greater than one
+	measure 'Bulk orders' =
+			
+			CALCULATE(
+			    [Total orders],
+			    Fact_sales[OrderQuantity]>1
+			)
+		formatString: #,0
+		lineageTag: c576e895-2405-4044-8318-642ba4647e0b
+
+	/// Calculates total orders occurring on days marked as "Weekend" in the calendar table
+	measure 'Weekend orders' =
+			
+			CALCULATE(
+			    [Total orders],
+			    Dim_calendar[weekend]="Weekend"
+			)
+		formatString: 0
+		lineageTag: 50399ed5-f7a0-4ff9-be90-ba658e11657d
+
+	/// Calculates the quantity of returned items specifically for the "Bikes" category
+	measure 'Bike returns' =
+			
+			CALCULATE(
+			    [Quantity returned],
+			    product_categories[ProductCategoryName]="Bikes"
+			)
+		formatString: 0
+		lineageTag: 0da8ea9b-21d6-4d6b-af98-e5e792c07c86
+
+	/// Calculates the quantity of items sold specifically for the "Bikes" category
+	measure 'Bike sales' =
+			
+			CALCULATE(
+			    [Quantity sold],
+			    product_categories[ProductCategoryName]="Bikes"
+			)
+		formatString: 0
+		lineageTag: cb635031-3783-46e7-be8a-4a05186d66cf
+
+	/// Calculates the return rate specifically for the "Bikes" category
+	measure 'Bike returns rate' =
+			
+			CALCULATE(
+			    [Return_rate],
+			    product_categories[ProductCategoryName]="Bikes"
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: c2c5da11-2021-4bde-81b6-b289546a2d30
+
+	/// Calculates total orders while ignoring any filters applied to the Fact_sales table
+	measure 'All orders' =
+			
+			CALCULATE(
+			    [Total orders],
+			    ALL(Fact_sales)
+			)
+		formatString: #,0
+		lineageTag: fbdfde52-3d7d-4dab-a50f-8e846ff836cb
+
+	/// Calculates the percentage of current filtered orders relative to all orders in the dataset
+	measure '% of all orders' =
+			
+			DIVIDE(
+			    [Total orders],
+			    [All orders]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1f431bc5-48d7-4fac-9140-8f2b6f538a9e
+
+	/// Calculates the average retail price while ignoring any filters applied to the Dim_product table
+	measure 'Overall average price' =
+			
+			CALCULATE(
+			    [Average retail price],
+			    ALL(Dim_product)
+			)
+		formatString: #,0.00\ "€";-#,0.00\ "€";#,0.00\ "€"
+		lineageTag: 967d57d2-6294-4940-a5fd-9df84127ae93
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates total returns while ignoring any filters applied to the Fact_returns table
+	measure 'All returns' =
+			
+			CALCULATE(
+			    [Total returns],
+			    ALL(Fact_returns)
+			)
+		formatString: 0
+		lineageTag: e87fb474-9259-4ffc-b082-1bab0b2b5a97
+
+	/// Calculates the percentage of current filtered returns relative to all returns in the dataset
+	measure '% of all returns' =
+			
+			DIVIDE(
+			    [Total returns],
+			    [All returns]
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 289f753b-6e10-4d71-901c-c2dfb8b55a6b
+
+	/// Calculates total orders for products whose individual price is greater than the overall average price of all products
+	measure 'High ticket orders' =
+			
+			CALCULATE(
+			    [Total orders],
+			    FILTER(ALL(Dim_product[ProductPrice]),Dim_product[ProductPrice]>[Overall average price])
+			)
+		formatString: #,0
+		lineageTag: 04e29d13-cea9-40d1-ab64-46c3d96cbb27
+
+	/// Multiplies order quantity by the related product price for each row in Fact_sales and sums the total revenue
+	measure 'Total revenue' =
+			
+			SUMX(
+			    Fact_sales,
+			    Fact_sales[OrderQuantity]*RELATED(Dim_product[ProductPrice])
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: fb3becd7-de26-42a4-ad72-ea9522bed369
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the ratio of total revenue to the total number of unique customers
+	measure 'Average revenue per customer' =
+			
+			DIVIDE([Total revenue],
+			[Total customers]
+			)
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: fe17c687-5172-4920-8502-ac20ad2edb97
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Multiplies each order quantity in the Fact_sales data table by the related product cost in the Dim_product table, and sums the result
+	measure 'Total cost' =
+			
+			SUMX(
+			    Fact_sales,
+			    Fact_sales[OrderQuantity]*RELATED(Dim_product[ProductCost])
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: c9b7cab1-f792-44b5-9e18-243ea0001148
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the difference between total revenue and total cost
+	measure 'Total profit' =
+			
+			[Total revenue] - [Total cost]
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 5e6a895b-aa44-4ddd-90c2-d8eba6b850c3
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the year-to-date total revenue based on the date field in the calendar table
+	measure 'YTD revenue' =
+			
+			CALCULATE(
+			    [Total revenue],
+			    DATESYTD(Dim_calendar[Date])
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: db354e5e-438e-4a09-b926-9e9893db3a9b
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the month-to-date total revenue based on the date field in the calendar table
+	measure 'MTD revenue' =
+			
+			CALCULATE(
+			    [Total revenue],
+			    DATESMTD(Dim_calendar[Date])
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 6af130c2-9350-4d9c-96f9-f2c3af0f1944
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the quarter-to-date total revenue based on the date field in the calendar table
+	measure 'QTD revenue' =
+			
+			CALCULATE(
+			    [Total revenue],
+			    DATESQTD(Dim_calendar[Date])
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: f5ac2f57-925b-4b76-9c09-2e0785a52fb0
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the total revenue for the previous month relative to the current selection
+	measure 'Previous month revenue' =
+			
+			CALCULATE(
+			    [Total revenue],
+			    DATEADD(Dim_calendar[Date],-1,MONTH)
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 1a767875-7dcc-4b34-9051-2bed39dca28a
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Sets a revenue target equal to 110% of the previous month's total revenue
+	measure 'revenue target' =
+			
+			[Previous month revenue]*1.1
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 93070671-fd43-45a1-8538-4924045aa1a1
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the total revenue over a rolling 10-day period ending on the last date in the current context
+	measure '10 days rolling revenue' =
+			
+			CALCULATE(
+			    [Total revenue],
+			    DATESINPERIOD(
+			            Dim_calendar[Date],
+			            MAX(Dim_calendar[Date]),
+			            10,
+			            DAY
+			            )
+			        )
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: b7083d03-1bc4-494c-a1ab-b90bdc4b2f6d
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the total returns for the previous month relative to the current selection
+	measure 'Previous month returns' =
+			
+			CALCULATE(
+			    [Total returns],
+			    DATEADD(Dim_calendar[Date],-1,MONTH)
+			)
+		formatString: 0
+		lineageTag: 7dd7c8ba-0566-4593-9d0e-4795355e8304
+
+	/// Calculates the total orders for the previous month relative to the current selection
+	measure 'Previous month orders' =
+			
+			CALCULATE(
+			    [Total orders],
+			    DATEADD(Dim_calendar[Date],-1,MONTH)
+			)
+		formatString: 0
+		lineageTag: 39eca6f0-6a5e-4223-93b1-bc7ddb802da6
+
+	/// Calculates the total profit for the previous month relative to the current selection
+	measure 'Previous month profit' =
+			
+			CALCULATE(
+			    [Total profit],
+			    DATEADD(Dim_calendar[Date],-1,MONTH)
+			)
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: 14c7df6c-8bed-4fcf-9dc4-6d6b4993fcbe
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Sets an order target equal to 110% of the previous month's total orders
+	measure Order_target =
+			
+			[Previous month orders]*1.1
+		formatString: #,0
+		lineageTag: 91bd041e-0907-4e1c-8e1e-c0942d75801c
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Sets a profit target equal to 110% of the previous month's total profit
+	measure Profit_target =
+			
+			[Previous month profit]*1.1
+		formatString: #,0\ "€";-#,0\ "€";#,0\ "€"
+		lineageTag: b92afc5b-0ac8-495f-b70f-c4eff06c6b2e
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates total profit over a rolling 90-day window backwards from the maximum date in context
+	measure '90 days rolling profit' = ```
+			
+			CALCULATE(
+			    [Total profit],
+			    DATESINPERIOD(
+			        Dim_calendar[Date],
+			        MAX(
+			            Dim_calendar[Date]
+			        ),
+			        -90,
+			        DAY
+			    )
+			)
+			
+			```
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 65169a75-448f-4053-a394-5438550da487
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Displays total orders if a single customer is selected; otherwise, returns a placeholder dash
+	measure 'Total orders (customer details)' = ```
+			
+			IF(
+			    HASONEVALUE(Dim_customer[CustomerKey])=TRUE(),
+			    [Total orders],
+			    "-"
+			    )
+			
+			```
+		formatString: 0
+		lineageTag: a717b1dd-e2b7-4b11-a601-1547092933a7
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Displays total revenue if a single customer is selected; otherwise, returns a placeholder dash
+	measure 'Total revenues (customer details)' =
+			
+			IF(
+			    HASONEVALUE(Dim_customer[CustomerKey])=TRUE(),
+			    [Total revenue],
+			    "-"
+			    )
+		lineageTag: 06510d83-1e09-4c0b-bf0c-fd9b65ee9851
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Displays the full name of the customer if one is uniquely identified, or "Multiple customers" if more than one is in context
+	measure 'Full name (customer details)' =
+			
+			IF(
+			    HASONEVALUE(Dim_customer[CustomerKey])=TRUE(),
+			    max(Dim_customer[FullName]),
+			    "Multiple customers"
+			    )
+		lineageTag: 74e099b8-6eb6-4eca-bcf4-f0f111e7b557
+
+	/// Calculates the variance between the actual total orders and the set order target
+	measure Order_target_diff = [Total orders] - [Order_target]
+		lineageTag: a036aa87-7670-47da-ba0c-ae8c2c1bc83a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Calculates revenue by applying a dynamic price adjustment percentage to the product price for each sale row
+	measure 'Total revenue adjusted' =
+			
+			SUMX(
+			     Fact_sales,
+			     Fact_sales[OrderQuantity]*RELATED(Dim_product[ProductPrice])*(1+'Adjust product price'[Adjust product price Value])
+			)
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: cac77c16-88b3-405d-9c65-b89e72bb22a5
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	/// Calculates the profit variance based on the adjusted total revenue minus the original total cost
+	measure 'Total profit adjust' =
+			
+			[Total revenue adjusted] - [Total cost]
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 0c8cff1e-51a0-4878-b1ae-90b436da21ed
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	partition Measure_table = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

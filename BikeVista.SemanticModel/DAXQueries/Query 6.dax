@@ -1,0 +1,7 @@
+DEFINE
+    MEASURE 'Measure_table'[Total customers] = DISTINCTCOUNT(Fact_sales[CustomerKey])
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Total customers", [Total customers]
+    )

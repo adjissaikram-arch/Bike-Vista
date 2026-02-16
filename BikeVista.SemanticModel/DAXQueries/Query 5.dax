@@ -1,0 +1,7 @@
+DEFINE
+    MEASURE 'Measure_table'[Total customers 2] = COUNTROWS(Dim_customer)
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Total customers 2", [Total customers 2]
+    )

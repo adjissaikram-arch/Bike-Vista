@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.1.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY25SU10",
+      "reportVersionAtImport": {
+        "visual": "2.1.0",
+        "report": "3.0.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY25SU10",
+          "path": "BaseThemes/CY25SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "BikeVista-logo6055652122030382.png",
+          "path": "BikeVista-logo6055652122030382.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon09663700983475754.png",
+          "path": "Dashboard_Icon09663700983475754.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon_Blue8663187090693143.png",
+          "path": "Dashboard_Icon_Blue8663187090693143.png",
+          "type": "Image"
+        },
+        {
+          "name": "Dashboard_Icon_Blue17496566594999274.png",
+          "path": "Dashboard_Icon_Blue17496566594999274.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon41150120693799175.png",
+          "path": "Map_Icon41150120693799175.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon_Blue4867614678051557.png",
+          "path": "Map_Icon_Blue4867614678051557.png",
+          "type": "Image"
+        },
+        {
+          "name": "Map_Icon_Blue6130742771981967.png",
+          "path": "Map_Icon_Blue6130742771981967.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon19870644103028545.png",
+          "path": "Product_Icon19870644103028545.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon_Blue32810458930413755.png",
+          "path": "Product_Icon_Blue32810458930413755.png",
+          "type": "Image"
+        },
+        {
+          "name": "Product_Icon_Blue013318313471127996.png",
+          "path": "Product_Icon_Blue013318313471127996.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon6173500800234328.png",
+          "path": "Customer_Icon6173500800234328.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon_Blue4825641102301861.png",
+          "path": "Customer_Icon_Blue4825641102301861.png",
+          "type": "Image"
+        },
+        {
+          "name": "Customer_Icon_Blue6295482031218695.png",
+          "path": "Customer_Icon_Blue6295482031218695.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon4215319905358821.png",
+          "path": "Filter_Icon4215319905358821.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue4550372504589848.png",
+          "path": "Filter_Icon_Blue4550372504589848.png",
+          "type": "Image"
+        },
+        {
+          "name": "Filter_Icon_Blue530485837961722.png",
+          "path": "Filter_Icon_Blue530485837961722.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

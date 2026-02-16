@@ -1,0 +1,81 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "0abd170c252e84f1d3e9",
+  "displayName": "Category tooltip",
+  "displayOption": "ActualSize",
+  "height": 225,
+  "width": 425,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7935374f270c5c8db146",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "product_categories"
+              }
+            },
+            "Property": "ProductCategoryName"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "c2ff62787d19e03273ac",
+    "type": "Tooltip",
+    "parameters": [
+      {
+        "name": "90d539886e27161f4bd8",
+        "boundFilter": "7935374f270c5c8db146",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "product_categories"
+              }
+            },
+            "Property": "ProductCategoryName"
+          }
+        }
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 1,
+                    "Percent": 0.2
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {}
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "type": "Tooltip"
+}

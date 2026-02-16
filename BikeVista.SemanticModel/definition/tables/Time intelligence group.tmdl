@@ -1,0 +1,82 @@
+table 'Time intelligence group'
+	lineageTag: a2ed8623-1e9e-4428-b239-91b85680b7e5
+
+	calculationGroup
+
+		calculationItem 'Current measure' = SELECTEDMEASURE()
+
+		calculationItem 'Previous month' =
+				
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATEADD(Dim_calendar[Date],-1,MONTH)
+				)
+
+		calculationItem MoM =
+				
+				var currentValue = SELECTEDMEASURE()
+				var previousValue =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATEADD(
+				        Dim_calendar[Date],
+				        -1,
+				        MONTH
+				    )
+				)
+				RETURN
+				currentValue - previousValue
+
+		calculationItem 'MoM % ▴' =
+				
+				var currentValue = SELECTEDMEASURE()
+				var previousValue =
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATEADD(
+				        Dim_calendar[Date],
+				        -1,
+				        MONTH
+				    )
+				)
+				var diff = currentValue - previousValue
+				RETURN
+				DIVIDE(
+				    diff,
+				    previousValue
+				)
+
+			formatStringDefinition = "##.##%"
+
+		calculationItem QTD =
+				
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESQTD(Dim_calendar[Date])
+				)
+
+		calculationItem YTD =
+				
+				CALCULATE(
+				    SELECTEDMEASURE(),
+				    DATESYTD(Dim_calendar[Date])
+				)
+
+	column 'Calculation group column'
+		dataType: string
+		lineageTag: 0b3b67df-ffca-4d26-89b3-e9c052d131b4
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: c2aa7e9e-fb0c-48e5-abe1-9bf5a576f5e2
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

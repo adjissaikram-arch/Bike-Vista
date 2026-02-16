@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Dim_calendar","Dim_customer","Dim_product","product_categories","Fact_returns","Fact_sales","Dim_territory","product_subcategories","Rolling date","ServerName","DataBaseName","Measure_table"]
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","TMDLView_Desktop","CalcGroup","DevMode"]
+
+ref table Dim_calendar
+ref table Dim_customer
+ref table Dim_product
+ref table product_categories
+ref table Fact_returns
+ref table Fact_sales
+ref table Dim_territory
+ref table product_subcategories
+ref table Measure_table
+ref table 'Adjust product price'
+ref table 'Product metric selection'
+ref table 'Customer metric selection'
+ref table 'Data Dictionary'
+ref table 'Time intelligence group'
+
+ref role Europe
+ref role 'North America'
+ref role Pacific
+
+ref cultureInfo en-US
+

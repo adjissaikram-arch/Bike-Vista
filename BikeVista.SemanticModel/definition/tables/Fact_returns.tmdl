@@ -1,0 +1,73 @@
+table Fact_returns
+	lineageTag: b7dfddfc-1db9-4322-b50a-e50a811a55fd
+
+	column ReturnKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e6516eba-7aa0-4ee3-937d-9e11de13917c
+		summarizeBy: count
+		sourceColumn: ReturnKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 9d8d423f-de33-4b48-ac9b-d9e588b30b2a
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7280c0c3-e829-46c5-a17b-1ef84556fd1f
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 89bb9fa2-6f9a-44c3-9085-9607cf7c95f3
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnDate
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: a0ba38d6-22ec-4751-801a-73b790da0112
+		summarizeBy: none
+		sourceColumn: ReturnDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Fact_returns = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database(ServerName, DataBaseName, [ReturnSingleDatabase=true]),
+				    bikevista_dev_returns_data = Source{[Schema=DataBaseName,Item="returns_data"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(bikevista_dev_returns_data,{DataBaseName & ".product", DataBaseName & ".territory"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

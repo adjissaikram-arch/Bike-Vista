@@ -1,0 +1,212 @@
+table Dim_customer
+	excludeFromModelRefresh
+	lineageTag: 49962a7c-39d4-43f0-8174-f4e20bc02054
+
+	column CustomerKey
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: e7bbb7dd-a5a5-4bd8-9221-ec7c7aab95b9
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prefix
+		dataType: string
+		lineageTag: 5506dc89-859d-469e-9d3e-1e16b9a16b1d
+		summarizeBy: none
+		sourceColumn: Prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 872102f8-7e23-4867-b754-9825275dae78
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: 29b597e0-e664-4f8e-89c2-24ab9d3f843a
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column BirthDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2a89ed29-1d3e-4bb3-bb25-5b6a701b1ace
+		summarizeBy: none
+		sourceColumn: BirthDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column MaritalStatus
+		dataType: string
+		lineageTag: 05b4c746-7e28-4e18-b2b7-65d97895693d
+		summarizeBy: none
+		sourceColumn: MaritalStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 1f29cee9-a0d9-4177-bedb-45f8a0b16b29
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmailAddress
+		dataType: string
+		lineageTag: 13a043c9-92fe-4758-9c6a-93eeac974c3a
+		summarizeBy: none
+		sourceColumn: EmailAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnnualIncome
+		dataType: double
+		lineageTag: 97c4cccd-2e50-4c9a-8eb2-21b40b491b7b
+		summarizeBy: none
+		sourceColumn: AnnualIncome
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalChildren
+		dataType: int64
+		formatString: 0
+		lineageTag: f3472923-45ee-4c99-945d-398518c20135
+		summarizeBy: none
+		sourceColumn: TotalChildren
+
+		annotation SummarizationSetBy = Automatic
+
+	column EducationLevel
+		dataType: string
+		lineageTag: b73833b4-13ee-4511-b8f2-4edb5d9a53f9
+		summarizeBy: none
+		sourceColumn: EducationLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Occupation
+		dataType: string
+		lineageTag: cf926143-d606-4b19-b27c-90af78d93c0b
+		summarizeBy: none
+		sourceColumn: Occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column HomeOwner
+		dataType: string
+		lineageTag: e2c6bb54-eb03-4188-9039-2db5f5dbd031
+		summarizeBy: none
+		sourceColumn: HomeOwner
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullName
+		dataType: string
+		lineageTag: ea079983-6b2b-4dcf-9330-fdd94286cd27
+		summarizeBy: none
+		sourceColumn: FullName
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Domain name'
+		dataType: string
+		lineageTag: 6157aac1-2c4b-44e5-885b-0c67e33641c2
+		summarizeBy: none
+		sourceColumn: Domain name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer priority' =
+			
+			IF(
+			    Dim_customer[Parent]="Yes" && Dim_customer[AnnualIncome]>100000,
+			    "Priority",
+			    "Standard"
+			)
+		lineageTag: f956f838-dfed-4eff-b484-e9ee693fd91d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Parent =
+			
+			IF(
+			    Dim_customer[TotalChildren]>0,
+			    "Yes",
+			    "No"
+			)
+		lineageTag: 45cefa63-fbbc-466f-b218-096aae0f0736
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income level' =
+			
+			SWITCH(
+			    TRUE(),
+			    Dim_customer[AnnualIncome]>150000,"Very high",
+			    Dim_customer[AnnualIncome]>100000,"High",
+			    Dim_customer[AnnualIncome]>50000,"Average",
+			    "Low"
+			)
+		lineageTag: bcfef5e8-35e0-4236-ac8b-6ca3fd2803d6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Education category' =
+			
+			SWITCH(
+			    TRUE(),
+			    Dim_customer[EducationLevel] = "High School" ||Dim_customer[EducationLevel] = "Partial High School","High School",
+			    Dim_customer[EducationLevel] = "Bachelors" || Dim_customer[EducationLevel] = "Partial College","Undergrad",
+			    "Graduated"
+			)
+		lineageTag: 367e1a61-918e-4e0c-b299-98163fce1a6c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Birth year' =
+			
+			YEAR(Dim_customer[BirthDate])
+		formatString: 0
+		lineageTag: 1faa8c65-0929-40ea-960d-d345c4f189ba
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database(ServerName, DataBaseName, [ReturnSingleDatabase=true]),
+				    bikevista_dev_customer = Source{[Schema=DataBaseName,Item="customer"]}[Data],
+				    #"Inserted FullName Column" = Table.AddColumn(bikevista_dev_customer, "FullName", each Text.Combine({[Prefix], [LastName], [FirstName]}, " "), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted FullName Column",{DataBaseName &".sales_data"}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Removed Columns",{{"Prefix", Text.Proper, type text}, {"FirstName", Text.Proper, type text}, {"LastName", Text.Proper, type text}}),
+				    #"Inserted Text Between Delimiters" = Table.AddColumn(#"Capitalized Each Word", "Text Between Delimiters", each Text.BetweenDelimiters([EmailAddress], "@", "."), type text),
+				    #"Replaced Value" = Table.ReplaceValue(#"Inserted Text Between Delimiters","-"," ",Replacer.ReplaceText,{"Text Between Delimiters"}),
+				    #"Capitalized Each Word1" = Table.TransformColumns(#"Replaced Value",{{"Text Between Delimiters", Text.Proper, type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Capitalized Each Word1",{{"Text Between Delimiters", "Domain name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

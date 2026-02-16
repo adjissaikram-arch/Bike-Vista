@@ -1,0 +1,182 @@
+table Dim_calendar
+	lineageTag: 2bf26f15-13c5-4c98-a027-9585a6249ad3
+
+	measure revenue_target_diff = [Total revenue] - [revenue target]
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 8b911379-8ea1-43ec-9595-9dd5399c9870
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	measure profit_target_diff = [Total profit] - [Profit_target]
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 2c26ecd8-a58a-468f-b85a-8d16e2ea534b
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 015da8d9-2510-4e66-8aa3-d3e4645dfb50
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: 1f821112-98f0-49a9-85b7-84f0c0ac0dbb
+		summarizeBy: none
+		sourceColumn: Day Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Week'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 658a69f0-862a-4eae-b6f9-c160695e8592
+		summarizeBy: none
+		sourceColumn: Start of Week
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of Month'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b474562e-c4ac-48fe-abce-e334052fe45e
+		summarizeBy: none
+		sourceColumn: Start of Month
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start of Quarter'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 98832a72-0324-42d1-9b01-63cd8103e964
+		summarizeBy: none
+		sourceColumn: Start of Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 40ac1cf7-306c-4f71-baef-15b7b4a365f1
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: dcb032a0-182b-46ce-957e-4f852325290b
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: a92fa66b-983d-49c5-b912-adfcc78a375c
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start of Year'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bea9e561-fded-4828-b54d-09c24ba6e9cf
+		summarizeBy: none
+		sourceColumn: Start of Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'month short' =
+			
+			UPPER(
+			LEFT(Dim_calendar[Month Name],3)
+			)
+		lineageTag: 53d39a3b-98bd-4e4f-9c0f-494b1bca2051
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of week' =
+			
+			WEEKDAY(Dim_calendar[Date],2)
+		formatString: 0
+		lineageTag: 61dd1423-3c00-4a39-b1f0-162e2fa232b2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekend =
+			
+			IF(
+			    Dim_calendar[Day of week] = 6 ||
+			    Dim_calendar[Day of week] = 7,
+			    "weekend",
+			    "weekday")
+		lineageTag: 307a17be-b95e-4086-94bb-2dd096526271
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: e7dc2e1d-a603-413b-9f8e-1d7f63258b00
+
+		level Year
+			lineageTag: 24c9fdf2-c900-4a6d-8bf7-d5246e0dd1d9
+			column: Year
+
+		level Month
+			lineageTag: 0b169054-d942-42fd-a07b-2f8501966054
+			column: Month
+
+		level Date
+			lineageTag: 2338c315-0bd9-465f-a855-a46460bf8a6e
+			column: Date
+
+	partition Dim_calendar = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database(ServerName, DataBaseName, [ReturnSingleDatabase=true]),
+				    bikevista_dev_calendar = Source{[Schema=DataBaseName,Item="calendar"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(bikevista_dev_calendar,{"Date"}),
+				    #"Inserted Day Name" = Table.AddColumn(#"Removed Other Columns", "Day Name", each Date.DayOfWeekName([Date]), type text),
+				    #"Inserted Start of Week" = Table.AddColumn(#"Inserted Day Name", "Start of Week", each Date.StartOfWeek([Date],1)),
+				    #"Inserted Start of Month" = Table.AddColumn(#"Inserted Start of Week", "Start of Month", each Date.StartOfMonth([Date]), type date),
+				    #"Inserted Start of Quarter" = Table.AddColumn(#"Inserted Start of Month", "Start of Quarter", each Date.StartOfQuarter([Date]), type date),
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Inserted Start of Quarter", {{"Date", type date}}, "en-US"),
+				    #"Inserted Month Name" = Table.AddColumn(#"Changed Type with Locale", "Month Name", each Date.MonthName([Date]), type text),
+				    #"Inserted Month" = Table.AddColumn(#"Inserted Month Name", "Month", each Date.Month([Date]), Int64.Type),
+				    #"Inserted Start of Year" = Table.AddColumn(#"Inserted Month", "Start of Year", each Date.StartOfYear([Date]), type date),
+				    #"Inserted Year" = Table.AddColumn(#"Inserted Start of Year", "Year", each Date.Year([Date]), Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Inserted Year",{"Date", "Day Name", "Month Name", "Month", "Year", "Start of Week", "Start of Month", "Start of Quarter", "Start of Year"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Reordered Columns",{{"Start of Week", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

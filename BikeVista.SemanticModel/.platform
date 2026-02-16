@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "BikeVista"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "da6184b2-3aef-4202-aaa1-e27eb11b70f3"
+  }
+}

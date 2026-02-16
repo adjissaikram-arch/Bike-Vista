@@ -1,0 +1,125 @@
+table Fact_sales
+	lineageTag: 698b491d-ba7b-4a75-ad92-f9b6e021c6bb
+
+	column SalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7bb97671-2083-4e54-bb7d-f2e157067356
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderDate
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 9eecf853-549d-4604-969e-87b9d96d726c
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StockDate
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 432906c6-3b0c-408f-8d21-1c130059f86a
+		summarizeBy: none
+		sourceColumn: StockDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column OrderNumber
+		dataType: string
+		lineageTag: 77e07b6e-4632-497d-999f-8206bad35cee
+		summarizeBy: none
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b8c1722e-6c15-406e-94e6-4abf05366298
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5aa61747-3c26-4b0b-9d89-031e332778d4
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column TerritoryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6cfa3e53-464d-4551-989f-5d8e4a3d0751
+		summarizeBy: none
+		sourceColumn: TerritoryKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderLineItem
+		dataType: int64
+		formatString: 0
+		lineageTag: 85312523-49f8-4584-b051-267e53ab336e
+		summarizeBy: sum
+		sourceColumn: OrderLineItem
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: e1e296ee-936c-46f1-90b3-5a298da36ccf
+		summarizeBy: sum
+		sourceColumn: OrderQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quantity type'
+		dataType: string
+		lineageTag: 5ec6f338-49bf-4fa4-a51f-0f859a54a4c1
+		summarizeBy: none
+		sourceColumn: Quantity type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_sales = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database(ServerName, DataBaseName, [ReturnSingleDatabase=true]),
+				    bikevista_dev_sales_data = Source{[Schema=DataBaseName ,Item="sales_data"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(bikevista_dev_sales_data,{DataBaseName & ".customer", DataBaseName & ".product", DataBaseName & ".territory"}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Removed Columns", "Quantity type", each if [OrderQuantity] = 1 then "Single item" else if [OrderQuantity] > 1 then "Multiple items" else "Other")
+				in
+				    #"Added Conditional Column"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

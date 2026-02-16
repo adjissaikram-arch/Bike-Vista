@@ -1,0 +1,51 @@
+relationship 3938de81-587c-9106-64e2-56fb3687d6d0
+	fromColumn: Dim_product.ProductSubcategoryKey
+	toColumn: product_subcategories.ProductSubcategoryKey
+
+relationship 3ef2219f-3b9a-b190-a09c-bdf1b14355aa
+	fromColumn: product_subcategories.ProductCategoryKey
+	toColumn: product_categories.ProductCategoryKey
+
+relationship 6a75dc35-6e1b-518e-9c5f-a102f461189f
+	fromColumn: Fact_sales.ProductKey
+	toColumn: Dim_product.ProductKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship f483c1be-ac17-354c-1c37-715763430ee8
+	fromColumn: Fact_sales.TerritoryKey
+	toColumn: Dim_territory.SalesTerritoryKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 297b4dd7-ce41-520f-c0ac-90067cbd4845
+	fromColumn: Fact_returns.ReturnDate
+	toColumn: Dim_calendar.Date
+
+relationship 8a2db6ce-3c81-ad9d-ad6f-6b511302dea6
+	fromColumn: Fact_returns.TerritoryKey
+	toColumn: Dim_territory.SalesTerritoryKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship b34b473e-8eb3-49ed-7b65-5dffa29959c0
+	fromColumn: Fact_returns.ProductKey
+	toColumn: Dim_product.ProductKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 7ff5e60d-365b-2fd3-0ba0-df854d32b76b
+	fromColumn: Fact_sales.CustomerKey
+	toColumn: Dim_customer.CustomerKey
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9ca707d3-9468-e9fa-8a39-0f9f3ff4c477
+	fromColumn: Fact_sales.OrderDate
+	toColumn: Dim_calendar.Date
+
+relationship 86b6133d-17b8-60d2-c2d3-ea61aab8543f
+	isActive: false
+	fromColumn: Fact_sales.StockDate
+	toColumn: Dim_calendar.Date
+

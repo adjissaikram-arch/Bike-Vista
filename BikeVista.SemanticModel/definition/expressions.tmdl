@@ -1,0 +1,33 @@
+expression ServerName = "127.0.0.1:3306" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7a14993b-a699-4875-a7e3-20ce6a643552
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression DataBaseName = "bikevista_dev" meta [IsParameterQuery=true, List={"bikevista_dev", "bikevista_test", "bikevista_prod"}, DefaultValue="bikevista_dev", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 3d391bd1-18f0-496d-bd81-b4e4a056d3f4
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'Rolling date' =
+		let
+		    Source = #date(2025,12,1),
+		    Custom1 = List.Dates(
+		    Source,
+		    Number.From(DateTime.LocalNow()) - Number.From(Source),
+		    #duration(1,0,0,0)
+		),
+		    #"Converted to Table" = Table.FromList(Custom1, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Converted to Table",{{"Column1", type date}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column1", "date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 1f384339-7ad6-44ed-a978-7c876a0e152c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

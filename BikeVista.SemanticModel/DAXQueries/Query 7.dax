@@ -1,0 +1,9 @@
+DEFINE
+    MEASURE 'Measure_table'[Return_rate] = DIVIDE(
+    [Quantity returned],
+    [Quantity sold])
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Return_rate", [Return_rate]
+    )

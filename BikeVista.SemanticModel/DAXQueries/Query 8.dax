@@ -1,0 +1,11 @@
+DEFINE
+    MEASURE 'Measure_table'[Parent] = IF(
+    sum(Dim_customer[TotalChildren]),
+    "Parent",
+    "Not parent"
+)
+
+EVALUATE
+    SUMMARIZECOLUMNS(
+        "Parent", [Parent]
+    )

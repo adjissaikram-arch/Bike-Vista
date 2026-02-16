@@ -1,0 +1,51 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "0ebec6763de1c23d0e93",
+  "position": {
+    "x": 654.54861698272737,
+    "y": 171.4293996859524,
+    "z": 8000,
+    "height": 87.9410556830535,
+    "width": 405.19676289406931,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Adjust product price"
+                    }
+                  },
+                  "Property": "Adjust product price"
+                }
+              },
+              "queryRef": "Adjust product price.Adjust product price",
+              "nativeQueryRef": "Adjust product price",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {}
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

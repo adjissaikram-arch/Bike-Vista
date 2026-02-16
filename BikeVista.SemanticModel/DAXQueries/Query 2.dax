@@ -1,0 +1,39 @@
+DEFINE
+	VAR __DS0Core = 
+		SUMMARIZECOLUMNS(
+			ROLLUPADDISSUBTOTAL(
+				'Dim_calendar'[Start of Year], "IsGrandTotalRowTotal",
+				'Dim_calendar'[Start of Month], "IsDM1Total",
+				'Dim_calendar'[Start of Week], "IsDM3Total"
+			),
+			"SumOrderQuantity", CALCULATE(SUM('Fact_sales'[OrderQuantity]))
+		)
+
+	VAR __DS0PrimaryWindowed = 
+		TOPN(
+			502,
+			__DS0Core,
+			[IsGrandTotalRowTotal],
+			0,
+			'Dim_calendar'[Start of Year],
+			1,
+			[IsDM1Total],
+			0,
+			'Dim_calendar'[Start of Month],
+			1,
+			[IsDM3Total],
+			0,
+			'Dim_calendar'[Start of Week],
+			1
+		)
+
+EVALUATE
+	__DS0PrimaryWindowed
+
+ORDER BY
+	[IsGrandTotalRowTotal] DESC,
+	'Dim_calendar'[Start of Year],
+	[IsDM1Total] DESC,
+	'Dim_calendar'[Start of Month],
+	[IsDM3Total] DESC,
+	'Dim_calendar'[Start of Week]
