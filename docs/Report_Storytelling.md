@@ -23,17 +23,17 @@ This is the command center. At a glance, we track:
 Power BI is not about static numbers. We empower users to explore the "Why" behind the data.
 
 ### Custom Tooltips
-![Tooltip Demo](../assets/desktop/2-Exec_tooltip.jpg)
+![Tooltip Demo](../assets/desktop/2-Exec_tooltip.png)
 Hovering over the trend line reveals granular details—weekly order breakdowns, revenue, and profit for that specific period. Stakeholders get answers instantly without requesting custom reports.
 
 ### Drill-Down Capabilities
-![Drill Down](../assets/desktop/3-Exec_drill.jpg)
+![Drill Down](../assets/desktop/3-Exec_drill.png)
 Using the drill hierarchy, users can move from a yearly strategic view down to monthly or weekly tactical views. For instance, drilling into **January 2022** reveals a revenue peak of **€4.06M**.
 
 ---
 
 ## 3. Seamless Navigation: Drill-Through
-![Drill Through](../assets/desktop/4-Exec_drillthrough.jpg)
+![Drill Through](../assets/desktop/4-Exec_drillthrough.png)
 To maintain a clean interface while offering depth, I implemented **Drill-Through** features. By right-clicking a product (e.g., in the Top 10 list), a user navigates directly to a filtered *Product Details* page. This creates a cohesive analytical experience.
 
 ---
@@ -41,7 +41,7 @@ To maintain a clean interface while offering depth, I implemented **Drill-Throug
 ## 4. Geographic Analysis
 **Goal:** Optimize logistics and identify growth territories.
 
-![Map View](../assets/desktop/6-Map_pacific.jpg)
+![Map View](../assets/desktop/6-Map_pacific.png)
 *(Above: Map filtered on the Pacific Region)*
 
 The map visualizes our global presence. When focusing on the **Pacific region**, we instantly identify Australia as a key market generating **6,060 orders**. This geospatial insight aids in territory planning and stock distribution.
@@ -51,7 +51,7 @@ The map visualizes our global presence. When focusing on the **Pacific region**,
 ## 5. Product Performance Deep-Dive
 **Goal:** Analyze profitability and variance against targets.
 
-![Product Filtered](../assets/desktop/8-Product_filtered.jpg)
+![Product Filtered](../assets/desktop/8-Product_filtered.png)
 
 When a specific product is selected—for example, the **Mountain Tire Tube**—the entire page adapts dynamically:
 * **Orders:** 275 units (slightly under the 293 target).
@@ -63,7 +63,7 @@ When a specific product is selected—for example, the **Mountain Tire Tube**—
 ## 6. Customer Intelligence
 **Goal:** Understand customer lifetime value (CLV) and segmentation.
 
-![Customer Details](../assets/desktop/9-Customer_page.jpg)
+![Customer Details](../assets/desktop/9-Customer_page.png)
 
 We have **17,400 customers** with a strong average revenue of **€1,400 per customer**.
 * **Segmentation:** High-income professionals make up our largest buyer segment.
