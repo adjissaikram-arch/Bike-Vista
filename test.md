@@ -36,6 +36,8 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 
 ---
 
+## ⚙️ Technical Stack & Tools Used
+
 ## 🏗️ Technical Architecture
 
 ```mermaid
@@ -45,4 +47,4 @@ graph LR
     C -->|Desktop/Service| D[Power BI Reports]
     E[GitHub Repo] -->|CI/CD Action| D
 
-## ⚙️ Technical Stack & Tools Used
+
