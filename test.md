@@ -38,6 +38,29 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 
 ## ⚙️ Technical Stack & Tools Used
 
+| Category | Tool / Technology | Purpose |
+|-----------|------------------|----------|
+| Database | MySQL | Data storage and management |
+| BI Tool | Power BI Desktop / Power BI Service | Data modeling and visualization |
+| ETL | Power BI **Dataflows** | Data transformation and cleaning |
+| Security | RLS / OLS | Data access control |
+| Version Control | Git & GitHub | Source code and version tracking |
+| Automation | GitHub Actions | CI/CD deployment pipeline |
+| Documentation | Markdown | Technical documentation and README |
+
+---
+
+## 📸 Screenshots (coming soon)
+
+This section will include:
+- The **Desktop version** of the report
+- The **Service version** of the report
+- The **Mobile version** of the report
+
+All images will be stored separately in the `/assets/` folder.
+
+---
+
 ## 🏗️ Technical Architecture
 
 ```mermaid
