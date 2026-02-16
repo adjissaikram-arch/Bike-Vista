@@ -36,15 +36,6 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 
 ---
 
-## 📸 Key Visuals
-
-| **Executive Dashboard** | **Geographic Analysis** |
-|:-----------------------:|:-----------------------:|
-| ![Dashboard](assets/desktop/1-Exec_dashboard.png) | ![Map](assets/desktop/6-Map_pacific.jpg) |
-| *Real-time KPI monitoring* | *Regional performance tracking* |
-
----
-
 ## 🏗️ Technical Architecture
 
 ```mermaid
@@ -54,3 +45,4 @@ graph LR
     C -->|Desktop/Service| D[Power BI Reports]
     E[GitHub Repo] -->|CI/CD Action| D
 
+## ⚙️ Technical Stack & Tools Used
