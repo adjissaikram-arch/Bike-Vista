@@ -1,6 +1,7 @@
 # 🚴‍♀️ BikeVista: Functional Demo & Data Storytelling
 
-This document serves as a walkthrough of the **BikeVista** reporting solution. It demonstrates how raw data is transformed into actionable business insights through interactive features, adhering to a logical storytelling flow.
+This document serves as a walkthrough of the **BikeVista** reporting solution. The BikeVista project is a complete Power BI analytics solution designed to analyze and monitor global bicycle sales. It simulates a global manufacturing company that produces cycling equipment and accessories.
+The objective is to build an interactive BI environment that allows users to track key performance indicators (KPIs) such as sales, revenue, profit, and returns; compare regional performance, analyze product-level trends, and identify high-value customers.
 
 ---
 
