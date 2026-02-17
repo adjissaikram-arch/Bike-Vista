@@ -44,7 +44,7 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 | *Real-time KPI monitoring* | *Regional performance tracking* |
 
 ---
-## Data Model (Star Schema):**
+## Data Model (Star Schema)
  ![Data Model](assets/desktop/11-Star_Schema_Model.png)
 
 ---
