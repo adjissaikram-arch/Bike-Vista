@@ -76,6 +76,8 @@ This view is critical for designing retention strategies and loyalty programs.
 ## 7. Data Governance
 Transparency is essential. A dedicated **Data Dictionary** page documents every measure and calculation logic, ensuring auditability and trust in the figures.
 
+![Customer Details](../assets/desktop/10-Data dictionary.png)
+
 ---
 
 *This walkthrough demonstrates the end-to-end user journey, from high-level KPIs to granular customer analysis.*
