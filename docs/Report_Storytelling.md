@@ -24,7 +24,7 @@ Power BI is not about static numbers. We empower users to explore the "Why" behi
 
 ### Custom Tooltips
 ![Tooltip Demo](../assets/desktop/2-Exec_tooltip.png)
-Hovering over the categories bar chart details—weekly order breakdowns, revenue, and profit for that specific period. Stakeholders get answers instantly without requesting custom reports.
+Hovering over the categories bar chart details—weekly order breakdowns, revenue, and profit for that specific category. Stakeholders get answers instantly without requesting product reports.
 
 ### Drill-Down Capabilities
 ![Drill Down](../assets/desktop/3-Exec_drill.png)
