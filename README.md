@@ -40,7 +40,7 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 
 | **Executive Dashboard** | **Geographic Analysis** |
 |:-----------------------:|:-----------------------:|
-| ![Dashboard](assets/desktop/1-Exec_dashboard.png) | ![Map](assets/desktop/6-Map_pacific.jpg) |
+| ![Dashboard](assets/desktop/1-Exec_dashboard.png) | ![Map](assets/desktop/6-Map_pacific.png) |
 | *Real-time KPI monitoring* | *Regional performance tracking* |
 
 ---
