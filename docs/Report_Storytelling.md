@@ -77,7 +77,7 @@ This view is critical for designing retention strategies and loyalty programs.
 Transparency is essential. A dedicated **Data Dictionary** page documents every measure and calculation logic, ensuring auditability and trust in the figures.
 > **Snapshot of the Data Dictionary:**
 > *Detailed documentation of all DAX measures for transparency and auditability.*
-> ![Data Dictionary](assets/desktop/10-Data-dictionary.PNG)
+> ![Data Dictionary](assets/desktop/10-Data-dictionary.png)
 
 
 ---
