@@ -66,7 +66,7 @@ When a specific product is selected—for example, the **Mountain Tire Tube**—
 ![Customer Details](../assets/desktop/9-Customer_page.png)
 
 We have **17,400 customers** with a strong average revenue of **€1,400 per customer**.
-* **Segmentation:** High-income professionals make up our largest buyer segment.
+* **Segmentation:** Professionals make up our largest buyer segment.
 * **Top Performer:** The table highlights our VIP clients, such as **Mrs. Shan Maurice**, who generated **€12,408** in revenue.
 
 This view is critical for designing retention strategies and loyalty programs.
