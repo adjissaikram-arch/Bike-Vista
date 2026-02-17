@@ -55,6 +55,9 @@ graph LR
     E[GitHub Repo] -->|CI/CD Action| D
 ```
 
+> **Snapshot of the actual Data Model (Star Schema):**
+> ![Data Model](assets/desktop/11-Star_Schema_Model.png)
+
 ---
 
 ## 👤 Author
