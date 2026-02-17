@@ -61,7 +61,7 @@ graph LR
 
 **Ikram BERHAIL**  
 📍 Based in France | 💼 Aspiring Data Analyst  
-🔗 [GitHub](https://github.com/adjisssaikram-arch)  
+🔗 [GitHub](https://github.com/adjissaikram-arch/Bike-Vista)  
 
 
 ---
