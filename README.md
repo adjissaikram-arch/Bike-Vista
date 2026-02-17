@@ -30,7 +30,7 @@ I have prepared detailed documentation to showcase both the **Functional** (User
 > **Click above** to see the report in action!
 > A guided tour through the report features: Executive Dashboard, Tooltips, Drill-Through, and Customer Intelligence.
 
-### 2️⃣ [**View the Technical Workflow (PDF)**](docs/BikeVista_Service_Workflow.pdf) ⚙️
+### 2️⃣ [**View the Technical Workflow (PDF)**](https://github.com/adjissaikram-arch/Bike-Vista/raw/main/docs/BikeVista_Service_Workflow.pdf) ⚙️
 > **Click above** to download the architecture diagram.
 > Details on: MySQL Setup, Dataflows ETL, and the Power BI Service Deployment Pipeline (Dev -> Test -> Prod).
 
