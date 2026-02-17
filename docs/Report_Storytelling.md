@@ -15,7 +15,7 @@ This is the command center. At a glance, we track:
 * **Volume:** 25,200 orders processed
 * **Quality Control:** A return rate of only 2.2%
 
-**Key Insight:** The *Revenue Trending* chart reveals a clear upward trajectory from 2020 to 2022, signaling successful business scaling. Accessories are the leading category by volume (17k orders), while specific products like "Tires and Tubes" drive high turnover.
+**Key Insight:** The *Revenue Trending* chart reveals a clear upward trajectory from 2020 to 2022, signaling successful business scaling. Accessories are the leading category by volume (17k orders), while specific products like "Tires and Tubes" drive high sales.
 
 ---
 
@@ -24,7 +24,7 @@ Power BI is not about static numbers. We empower users to explore the "Why" behi
 
 ### Custom Tooltips
 ![Tooltip Demo](../assets/desktop/2-Exec_tooltip.png)
-Hovering over the trend line reveals granular details—weekly order breakdowns, revenue, and profit for that specific period. Stakeholders get answers instantly without requesting custom reports.
+Hovering over the categories bar chart details—weekly order breakdowns, revenue, and profit for that specific period. Stakeholders get answers instantly without requesting custom reports.
 
 ### Drill-Down Capabilities
 ![Drill Down](../assets/desktop/3-Exec_drill.png)
